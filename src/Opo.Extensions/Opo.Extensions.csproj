@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <PackageId>Opo.Extensions</PackageId>
+    <Version>1.0.23</Version>
+    <Authors>Dave Hauser</Authors>
+    <Company>Opo</Company>
+    <Title>All sorts of extension methods</Title>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+</Project>

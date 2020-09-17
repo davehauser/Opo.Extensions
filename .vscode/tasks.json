@@ -1,0 +1,41 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        // Ask dotnet build to generate full paths for file names.
+        "/property:GenerateFullPaths=true",
+        // Do not generate summary otherwise it leads to duplicate errors in Problems panel
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "pack nuget",
+      "group": "build",
+      "dependsOn": "build",
+      "command": "dotnet pack",
+      "type": "shell",
+      "args": [
+        "packnuget"
+      ]
+    },
+    {
+      "label": "nugetpublish",
+      "group": "build",
+      "dependsOn": "nuget-pack",
+      "command": "nuget init D:\\Daten\\Projekte\\Opo.Extensions\\bin\\Debug D:\\Daten\\Projekte\\z_Nuget",
+      "type": "shell"
+    }
+  ]
+}

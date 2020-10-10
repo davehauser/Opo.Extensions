@@ -37,7 +37,16 @@ namespace Opo.Extensions
             }
 
             s = Regex.Replace(s, @"\s{2,}|[:,-\.\x5F]\s*", " ").ReplaceIllegalFilenameCharacters().ToUsAscii().Replace("&", "and");
-            return String.Join("", s.Split(' ').Select(x => x.ToFirstLetterUpperCase()).ToArray());
+            return String.Join("", s.Split(' ').Select(x => x.FirstLetterToUpperCase()).ToArray());
+        }
+        public static string ToCamelCase(this string s)
+        {
+            if (s == null)
+            {
+                return null;
+            }
+
+            return s.ToPascalCase().FirstLetterToLowerCase();
         }
 
         public static bool Contains(this string s, string value, StringComparison comparison)
@@ -100,16 +109,23 @@ namespace Opo.Extensions
             return new ASCIIEncoding().GetString(encoder.GetBytes(s));
         }
 
-        public static string ToFirstLetterUpperCase(this string s)
+        public static string FirstLetterToUpperCase(this string s, bool lowerOtherCharacters = true)
         {
             if (s?.Length <= 1)
             {
                 return s;
             }
-            else
+
+            return s.Substring(0, 1).ToUpper() + (lowerOtherCharacters ? s.Substring(1).ToLower() : s.Substring(1));
+        }
+        public static string FirstLetterToLowerCase(this string s)
+        {
+            if (s?.Length <= 1)
             {
-                return s.Substring(0, 1).ToUpper() + s.Substring(1).ToLower();
+                return s;
             }
+
+            return s.Substring(0, 1).ToLower() + s.Substring(1);
         }
 
         public static bool EqualsIgnoreCase(this string s, string value)
@@ -206,13 +222,13 @@ namespace Opo.Extensions
         }
         public static string[] SplitString(this string s, char[] separators, bool trimEntries = true, bool removeEmptyEntries = true)
         {
-            if(separators == null)
+            if (separators == null)
             {
-                separators = new [] { ',' };
+                separators = new[] { ',' };
             }
             IEnumerable<string> results = s.Split(separators);
-            
-            if(trimEntries)
+
+            if (trimEntries)
             {
                 results = results.Select(x => x.Trim());
             }
@@ -221,6 +237,18 @@ namespace Opo.Extensions
                 ? results.Where(x => x.IsNotNullOrEmpty())
                 : results
             ).ToArray();
+        }
+    
+        public static IEnumerable<int> ParseIntegers(this string s)
+        {
+            var matches = Regex.Matches(s, "\\d+");
+            foreach (Match match in matches)
+            {
+                if(int.TryParse(match.Value, out int i))
+                {
+                    yield return i;
+                }
+            }
         }
     }
 }

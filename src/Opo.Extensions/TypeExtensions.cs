@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Opo.Extensions
 {
@@ -47,6 +50,41 @@ namespace Opo.Extensions
             return null;
         }
 
+        public static bool IsGenericCollection(this Type type)
+        {
+            if (type.Equals(typeof(string)))
+            {
+                return false;
+            }
+
+            return type.GetInterface(nameof(IEnumerable)) != null;
+        }
+        public static bool IsGenericDictionary(this Type type)
+        {
+            return type.IsGenericCollection() && type.GetGenericTypeDefinition() == typeof(IDictionary<,>);
+        }
+
+        public static Type GetCollectionType(this Type type)
+        {
+            if (!type.IsGenericCollection())
+            {
+                return null;
+            }
+
+            if (type.IsGenericCollection())
+            {
+                return typeof(KeyValuePair<,>);
+            }
+
+            var genericArguments = type.GetGenericArguments();
+            if (genericArguments != null && genericArguments.Any())
+            {
+                return genericArguments[0];
+            }
+
+            return null;
+        }
+
         public static bool IsSimple(this Type type)
         {
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -60,6 +98,24 @@ namespace Opo.Extensions
               || type.Equals(typeof(decimal))
               || type.Equals(typeof(DateTime))
               || type.Equals(typeof(TimeSpan));
+        }
+
+        public static bool IsAnonymousType(this object obj)
+        {
+            return obj.GetType().IsAnonymousType();
+        }
+        public static bool IsAnonymousType(this Type type)
+        {
+            if (type == null)
+            {
+                return false;
+            }
+
+            // return type.Name.Contains("f__AnonymouseType");
+            return Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
+                && type.IsGenericType && type.Name.Contains("AnonymousType")
+                && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"))
+                && type.Attributes.HasFlag(TypeAttributes.NotPublic);
         }
     }
 }

@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Shouldly;
 using Xunit;
 
@@ -55,6 +58,22 @@ namespace Opo.Extensions
 
             //Then
             actual.ShouldBe(new[] { "A", " B", " ", "C " });
+        }
+
+        [Theory]
+        [InlineData("1,2,3,4,56")]
+        [InlineData("1 2ab3ab4-ei%56")]
+        [InlineData("ölkj1j2 3.4ö56er")]
+        public void ParseIntegers_ReturnsAllIntegers(string input)
+        {
+            //Given
+            var expected = new int[] { 1, 2, 3, 4, 56 };
+
+            //When
+            var actual = input.ParseIntegers();
+
+            //Then
+            actual.ShouldBe(expected);
         }
     }
 }

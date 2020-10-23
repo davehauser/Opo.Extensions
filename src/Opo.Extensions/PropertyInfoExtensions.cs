@@ -2,11 +2,11 @@ using System.Reflection;
 
 namespace Opo.Extensions
 {
-  public static class PropertyInfoExtensions
-  {
-    public static bool HasPublicSetter(this PropertyInfo prop)
+    public static class PropertyInfoExtensions
     {
-      return prop.GetSetMethod() != null;
+        public static bool HasPublicSetter(this PropertyInfo prop)
+        {
+            return prop.GetSetMethod() != null;
+        }
     }
-  }
 }

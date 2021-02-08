@@ -36,5 +36,19 @@ namespace Opo.Extensions
             // assert
             actual.ShouldBe(expected);
         }
-    }
+    
+		[Fact]
+		public void ToUtc_ReturnsNull_WhenInputValueIsNull()
+		{
+			//Given
+			var input = default(DateTime?);
+
+			//When
+			var actual = input.ToUtc();
+
+			//Then
+			actual.ShouldBe(null);
+		}
+	
+	}
 }

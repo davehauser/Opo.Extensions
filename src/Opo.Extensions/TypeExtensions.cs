@@ -97,7 +97,8 @@ namespace Opo.Extensions
               || type.Equals(typeof(string))
               || type.Equals(typeof(decimal))
               || type.Equals(typeof(DateTime))
-              || type.Equals(typeof(TimeSpan));
+              || type.Equals(typeof(TimeSpan))
+			  || type.Equals(typeof(Guid));
         }
 
         public static bool IsAnonymousType(this object obj)

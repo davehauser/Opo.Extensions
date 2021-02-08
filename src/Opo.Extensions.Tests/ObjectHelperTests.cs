@@ -20,7 +20,8 @@ namespace Opo.Extensions
             result["StringProperty"].ShouldBe("abc");
             result["DateTimeProperty"].ShouldBe(new DateTime(2000, 1, 1, 0, 0, 0));
             result["NullProperty"].ShouldBeNull();
-            var childProperty = result["ClassProperty"] as TestClass.ChildClass;
+			result["NullableIntProperty"].ShouldBeNull();
+			var childProperty = result["ClassProperty"] as TestClass.ChildClass;
             childProperty.IntProperty.ShouldBe(1);
             childProperty.StringProperty.ShouldBe("abc");
         }
@@ -110,7 +111,8 @@ namespace Opo.Extensions
         public string StringProperty { get; set; } = "abc";
         public DateTime DateTimeProperty { get; set; } = new DateTime(2000, 1, 1, 0, 0, 0);
         public object NullProperty { get; set; } = null;
-        public ChildClass ClassProperty { get; set; } = new ChildClass();
+		public int? NullableIntProperty { get; set; }= null;
+		public ChildClass ClassProperty { get; set; } = new ChildClass();
 
         public class ChildClass
         {

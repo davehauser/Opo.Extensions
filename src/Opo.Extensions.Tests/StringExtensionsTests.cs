@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -75,5 +76,34 @@ namespace Opo.Extensions
             //Then
             actual.ShouldBe(expected);
         }
+
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		public void ToLines_ReturnsEmptyArray_WhenStringIsNullOrEmpty(string input)
+		{
+			//Given
+			var expected = new string[] { };
+
+			//When
+			var actual = input.ToLines();
+
+			//Then
+			actual.ShouldBe(expected);
+		}
+
+		[Fact]
+		public void ToLines_ReturnsNoEmptyLines_WheneOptionsIsSet()
+		{
+			//Given
+			var input = @"ABC" + Environment.NewLine + Environment.NewLine + "DEF";
+			var expected = new string[] { "ABC", "DEF" };
+			
+			//When
+			var actual = input.ToLines();
+
+			//Then
+			actual.ShouldBe(expected);
+		}
     }
 }

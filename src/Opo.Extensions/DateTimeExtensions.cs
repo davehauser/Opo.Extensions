@@ -140,9 +140,23 @@ namespace Opo.Extensions
 
 			if (formatProvider == null)
 			{
-				formatProvider = CultureInfo.CreateSpecificCulture("de-CH");
+				formatProvider = CultureInfo.CurrentCulture;
 			}
 			return dateTime.Value.ToString(format, formatProvider);
+		}
+
+		public static string ToIso8601String(this DateTime? dateTime, string defaultValue = "")
+		{
+			if(!dateTime.HasValue)
+			{
+				return defaultValue;
+			}
+
+			return dateTime.Value.ToIso8601String();
+		}
+		public static string ToIso8601String(this DateTime dateTime)
+		{
+			return dateTime.ToString("yyyy-MM-ddTHH:mm:ss");
 		}
 
 		private static TimeZoneInfo GetTimeZoneInfo(string timeZoneId)

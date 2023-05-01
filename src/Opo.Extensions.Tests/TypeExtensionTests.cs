@@ -60,7 +60,7 @@ namespace Opo.Extensions
         [Theory]
         [InlineData(typeof(IEnumerable<string>), typeof(string))]
         [InlineData(typeof(IList<int>), typeof(int))]
-        [InlineData(typeof(IDictionary<string, string>), typeof(KeyValuePair<string, string>))]
+        [InlineData(typeof(IDictionary<,>), typeof(KeyValuePair<,>))]
         public void GetCollectionType_ReturnsCollectionType_WhenTypeIsGenericCollection(Type input, Type expected)
         {
             // act
@@ -73,7 +73,7 @@ namespace Opo.Extensions
         [Theory]
         [InlineData(typeof(string))]
         [InlineData(typeof(IEnumerable))]
-        public void GetCollectionType_ReturnsNull_WheneTypeIsNotGenericCollection(Type input)
+        public void GetCollectionType_ReturnsNull_WhenTypeIsNotGenericCollection(Type input)
         {
             // act
             var actual = input.GetCollectionType();

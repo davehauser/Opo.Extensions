@@ -130,6 +130,10 @@ namespace Opo.Extensions
 
 		public static bool EqualsIgnoreCase(this string s, string value)
 		{
+			if(s == null)
+			{
+				return value == null;
+			}
 			return s.Equals(value, StringComparison.OrdinalIgnoreCase);
 		}
 
@@ -196,7 +200,7 @@ namespace Opo.Extensions
 				return null;
 			}
 
-			var lines = s.ToLinesList().Where(x => x.IsNotNullOrWhiteSpace());
+			var lines = s.ToLines().Where(x => x.IsNotNullOrWhiteSpace());
 			return String.Join(Environment.NewLine, lines);
 		}
 
@@ -252,7 +256,7 @@ namespace Opo.Extensions
 
 		public static IEnumerable<int> ParseIntegers(this string s)
 		{
-			var matches = Regex.Matches(s, "\\d+");
+			var matches = Regex.Matches(s ?? "", "\\d+");
 			foreach (Match match in matches)
 			{
 				if (int.TryParse(match.Value, out int i))

@@ -71,7 +71,7 @@ namespace Opo.Extensions
                 return null;
             }
 
-            if (type.IsGenericCollection())
+            if (type.IsGenericDictionary())
             {
                 return typeof(KeyValuePair<,>);
             }

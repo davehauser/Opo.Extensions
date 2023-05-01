@@ -49,6 +49,31 @@ namespace Opo.Extensions
 			//Then
 			actual.ShouldBe(null);
 		}
-	
+
+        [Fact]
+        public void ToIso8601String_WithNullInput_ReturnsEmptyString()
+        {
+            //Given
+            var input = default(DateTime?);
+
+            //When
+            var actual = input.ToIso8601String();
+
+            //Then
+            actual.ShouldBeEmpty();
+        }
+
+        [Fact]
+        public void ToIso8601String_ReturnsCorrectFormattedString()
+        {
+            //Given
+            var input = new DateTime(2000, 1, 2, 3, 4, 5);
+
+            //When
+            var actual = input.ToIso8601String();
+
+            //Then
+            actual.ShouldBe("2000-01-02T03:04:05");
+        }
 	}
 }

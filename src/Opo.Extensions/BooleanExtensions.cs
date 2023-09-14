@@ -21,5 +21,12 @@ namespace Opo.Extensions
 										return b ? "Yes" : "No";
 						}
 				}
+
+				public static string ToYesNo(this bool? b, Case c = Case.Capitalize, string defaultValue = "")
+				{
+					return b.HasValue
+						? b.Value.ToYesNo(c)
+						: defaultValue ?? "";
+				}
 		}
 }

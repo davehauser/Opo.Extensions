@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
     <PackageId>Opo.Extensions</PackageId>
-    <Version>1.1.15</Version>
+    <Version>1.1.17</Version>
     <Authors>Dave Hauser</Authors>
     <Company>Opo</Company>
     <Title>All sorts of extension methods</Title>

@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Shouldly;
 using Xunit;
 
@@ -9,6 +6,19 @@ namespace Opo.Extensions
 {
 	public class StringExtensionsTests
 	{
+		[Fact]
+		public void SplitString_ReturnsEmptyArray_IfStringIsNull()
+		{
+			//Given
+			string s = null;
+
+			//When
+			var actual = s.SplitString();
+
+			//Then
+			actual.ShouldBe(new string[] { });
+		}
+
 		[Fact]
 		public void SplitString_ReturnsTrimmedNonEmptyEntriesFromCommaSparatedString_IfNoArgumentsArePassed()
 		{

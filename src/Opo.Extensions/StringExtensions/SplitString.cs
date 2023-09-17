@@ -12,6 +12,11 @@ namespace Opo.Extensions
 
 		public static string[] SplitString(this string s, char[] separators, bool trimEntries = true, bool removeEmptyEntries = true)
 		{
+			if (s == null)
+			{
+				return new string[] { };
+			}
+
 			if (separators == null)
 			{
 				separators = new[] { ',' };

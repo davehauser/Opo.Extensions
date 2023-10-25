@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Shouldly;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace Opo.Extensions
 			var actual = s.SplitString();
 
 			//Then
-			actual.ShouldBe(new string[] { });
+			actual.ShouldBe(new List<string>());
 		}
 
 		[Fact]
@@ -29,7 +30,7 @@ namespace Opo.Extensions
 			var actual = s.SplitString();
 
 			//Then
-			actual.ShouldBe(new[] { "A", "B", "C" });
+			actual.ShouldBe(new List<string> { "A", "B", "C" });
 		}
 
 		[Fact]
@@ -42,7 +43,7 @@ namespace Opo.Extensions
 			var actual = s.SplitString('|');
 
 			//Then
-			actual.ShouldBe(new[] { "A", "B", "C" });
+			actual.ShouldBe(new List<string> { "A", "B", "C" });
 		}
 
 		[Fact]
@@ -55,7 +56,7 @@ namespace Opo.Extensions
 			var actual = s.SplitString(removeEmptyEntries: false);
 
 			//Then
-			actual.ShouldBe(new[] { "A", "B", "", "C" });
+			actual.ShouldBe(new List<string> { "A", "B", "", "C" });
 		}
 
 		[Fact]
@@ -68,7 +69,7 @@ namespace Opo.Extensions
 			var actual = s.SplitString(trimEntries: false);
 
 			//Then
-			actual.ShouldBe(new[] { "A", " B", " ", "C " });
+			actual.ShouldBe(new List<string> { "A", " B", " ", "C " });
 		}
 
 		[Theory]
